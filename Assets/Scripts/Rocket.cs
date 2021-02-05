@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(AudioSource))]
+[DisallowMultipleComponent]
 public class Rocket : MonoBehaviour
 {
     private Rigidbody _rigidbody;
@@ -100,7 +101,7 @@ public class Rocket : MonoBehaviour
 
     private void LoadNextLevel()
     {
-        // Todo: Allow for more levels
+        // TODO: Allow for more levels
         SceneManager.LoadScene(1);
     }
 
