@@ -14,36 +14,53 @@ public class Rocket : MonoBehaviour
     [SerializeField]
     private float _mainThrust = 100f;
 
-    // Start is called before the first frame update
+    private State _state = State.Alive;
+
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
         _audioSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
     private void Update()
     {
+        // TODO: Stop sound on death
+        if (_state != State.Alive) return;
         Thrust();
         Rotate();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (_state != State.Alive) return;
+
         switch (collision.gameObject.tag)
         {
             case "Friendly":
                 // do nothing
                 break;
             case "Finish":
-                print("Finish");
-                SceneManager.LoadScene(1);
+                _state = State.Transcending;
+                // TODO: Parameterize time
+                Invoke(nameof(LoadNextLevel), 1f);
                 break;
             default:
-                print("dead");
-                SceneManager.LoadScene(0);
+                _state = State.Dying;
+                // TODO: Parameterize time
+                Invoke(nameof(LoadFirstLevel), 1f);
                 break;
         }
+    }
+
+    private void LoadFirstLevel()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    private void LoadNextLevel()
+    {
+        // Todo: Allow for more levels
+        SceneManager.LoadScene(1);
     }
 
     private void Thrust()
