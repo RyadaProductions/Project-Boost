@@ -9,6 +9,7 @@ public class Rocket : MonoBehaviour
     private Rigidbody _rigidbody;
     private AudioSource _audioSource;
     private State _state = State.Alive;
+    private bool _areCollissionsDisabled;
 
     [SerializeField]
     private float _rcsThrust = 100f;
@@ -45,14 +46,22 @@ public class Rocket : MonoBehaviour
 
     private void Update()
     {
+        if (Debug.isDebugBuild) RespondToDebugKeys();
+
         if (_state != State.Alive) return;
         RespondToThrustInput();
         RespondToRotateInput();
     }
 
+    private void RespondToDebugKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.L)) LoadNextLevel();
+        else if (Input.GetKeyDown(KeyCode.C)) _areCollissionsDisabled = !_areCollissionsDisabled;
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        if (_state != State.Alive) return;
+        if (_state != State.Alive || _areCollissionsDisabled) return;
 
         switch (collision.gameObject.tag)
         {
