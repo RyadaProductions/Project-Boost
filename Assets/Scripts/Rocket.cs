@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(AudioSource))]
@@ -34,10 +33,15 @@ public class Rocket : MonoBehaviour
         switch (collision.gameObject.tag)
         {
             case "Friendly":
-                print("OK");
+                // do nothing
+                break;
+            case "Finish":
+                print("Finish");
+                SceneManager.LoadScene(1);
                 break;
             default:
                 print("dead");
+                SceneManager.LoadScene(0);
                 break;
         }
     }
