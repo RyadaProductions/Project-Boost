@@ -2030,11 +2030,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8578472273201643121, guid: 7975f37924d84d64d9e275e74234838d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.4785385
+      value: 15.63
       objectReference: {fileID: 0}
     - target: {fileID: 8578472273201643121, guid: 7975f37924d84d64d9e275e74234838d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -25.968706
+      value: -45.09
       objectReference: {fileID: 0}
     - target: {fileID: 8578472273201643121, guid: 7975f37924d84d64d9e275e74234838d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2067,6 +2067,10 @@ PrefabInstance:
     - target: {fileID: 8578472273201643124, guid: 7975f37924d84d64d9e275e74234838d, type: 3}
       propertyPath: m_Name
       value: Main Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 8578472273201643126, guid: 7975f37924d84d64d9e275e74234838d, type: 3}
+      propertyPath: field of view
+      value: 32.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7975f37924d84d64d9e275e74234838d, type: 3}
