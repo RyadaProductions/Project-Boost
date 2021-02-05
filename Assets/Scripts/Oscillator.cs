@@ -23,7 +23,7 @@ public class Oscillator : MonoBehaviour
 
     void Update()
     {
-        // TODO: protect against 0 _period value
+        if (_period <= Mathf.Epsilon) return;
 
         // Infinitely grows
         var cycles = Time.time / _period;
