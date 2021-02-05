@@ -22,7 +22,16 @@ public class Rocket : MonoBehaviour
     private AudioClip _deathSound;
 
     [SerializeField]
-    private AudioClip _levelLoadSound;
+    private AudioClip _successSound;
+
+    [SerializeField]
+    private ParticleSystem _engineParticles;
+
+    [SerializeField]
+    private ParticleSystem _deathParticles;
+
+    [SerializeField]
+    private ParticleSystem _successParticles;
 
     private void Start()
     {
@@ -32,7 +41,6 @@ public class Rocket : MonoBehaviour
 
     private void Update()
     {
-        // TODO: Stop sound on death
         if (_state != State.Alive) return;
         RespondToThrustInput();
         RespondToRotateInput();
@@ -60,7 +68,13 @@ public class Rocket : MonoBehaviour
     {
         _state = State.Transcending;
         _audioSource.Stop();
-        _audioSource.PlayOneShot(_levelLoadSound);
+        _audioSource.PlayOneShot(_successSound);
+
+        if (_engineParticles.isPlaying)
+            _engineParticles.Stop();
+
+        _successParticles.Play();
+
         // TODO: Parameterize time
         Invoke(nameof(LoadNextLevel), 1f);
     }
@@ -70,6 +84,11 @@ public class Rocket : MonoBehaviour
         _state = State.Dying;
         _audioSource.Stop();
         _audioSource.PlayOneShot(_deathSound);
+
+        if (_engineParticles.isPlaying)
+            _engineParticles.Stop();
+
+        _deathParticles.Play();
         // TODO: Parameterize time
         Invoke(nameof(LoadFirstLevel), 1f);
     }
@@ -93,10 +112,14 @@ public class Rocket : MonoBehaviour
 
             if (!_audioSource.isPlaying)
                 _audioSource.PlayOneShot(_mainEngineSound);
+
+            if (!_engineParticles.isPlaying)
+                _engineParticles.Play();
         }
         else if (_audioSource.isPlaying)
         {
             _audioSource.Stop();
+            _engineParticles.Stop();
         }
     }
 
